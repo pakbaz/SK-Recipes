@@ -18,7 +18,9 @@ public static class Settings
     private const string EndpointKey = "endpoint";
     private const string SecretKey = "apikey";
     private const string OrgKey = "org";
+    private const string AzureSearchKey = "AzureSearchAPIKey";
     private const bool StoreConfigOnFile = true;
+
 
     // Prompt user for Azure Endpoint URL
     public static async Task<string> AskAzureEndpoint(bool _useAzureOpenAI = true, string configFile = DefaultConfigFile)
@@ -81,7 +83,11 @@ public static class Settings
 
         return model;
     }
-
+    public static string GetBingAPIKey()
+    {
+        var config = JsonSerializer.Deserialize<Dictionary<string, string>>(File.ReadAllText(DefaultConfigFile));
+        return config[AzureSearchKey];
+    }
     // Prompt user for API Key
     public static async Task<string> AskApiKey(bool _useAzureOpenAI = true, string configFile = DefaultConfigFile)
     {
